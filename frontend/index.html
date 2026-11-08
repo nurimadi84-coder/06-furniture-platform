@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MebelExpress — индивидуальная мебель с мгновенной оценкой</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <script>
+    // Same-origin when served by FastAPI (:8000) or Docker nginx (:8080)
+    window.MEBEL_API_BASE =
+      window.MEBEL_API_BASE ||
+      (["8000", "8080"].includes(location.port) || !location.port
+        ? "/api/v1"
+        : "http://127.0.0.1:8000/api/v1");
+
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="./index.html">Mebel<span>Express</span></a>
+      <nav class="nav-links">
+        <a href="#calculator">Калькулятор</a>
+        <a href="#vision">AI-эскиз</a>
+        <a href="./track.html">Статус заказа</a>
+        <a class="btn btn-primary" href="#calculator">Рассчитать</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-media" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <p class="hero-brand">Mebel<em>Express</em></p>
+      <h1>Мебель по вашим размерам — цена за 60 секунд</h1>
+      <p>Шкафы, кухни и кровати с прозрачной вилкой стоимости, заявкой в один клик и трекингом цеха.</p>
+      <div class="hero-cta">
+        <a class="btn btn-accent" href="#calculator">Быстрая заявка</a>
+        <a class="btn btn-secondary" href="./track.html" style="color:#f7f3ec;border-color:rgba(247,243,236,.35)">Отследить заказ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="container">
+      <div class="section-head">
+        <h2>Квиз-калькулятор</h2>
+        <p>Четыре шага — и вы видите вилку цены без перезагрузки страницы. Отправьте заявку, менеджер свяжется в WhatsApp/Telegram.</p>
+      </div>
+
+      <div class="panel">
+        <div class="stepper" aria-label="Шаги калькулятора">
+          <span class="step-pill active" data-step-pill="1">1. Тип</span>
+          <span class="step-pill" data-step-pill="2">2. Габариты</span>
+          <span class="step-pill" data-step-pill="3">3. Материалы</span>
+          <span class="step-pill" data-step-pill="4">4. Цена и заявка</span>
+        </div>
+
+        <div data-step-panel="1">
+          <div class="type-grid">
+            <button type="button" class="type-card" data-furniture-type="шкаф">
+              <div class="icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M12 3v18M7 8h2M15 8h2M7 12h2M15 12h2"/></svg>
+              </div>
+              <strong>Шкаф</strong>
+              <span>Распашной или купе под нишу</span>
+            </button>
+            <button type="button" class="type-card" data-furniture-type="кухня">
+              <div class="icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="12" rx="1.5"/><path d="M3 12h18M8 8V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V8"/></svg>
+              </div>
+              <strong>Кухня</strong>
+              <span>Линейная / угловая модульная</span>
+            </button>
+            <button type="button" class="type-card" data-furniture-type="кровать">
+              <div class="icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18V9.5A1.5 1.5 0 0 1 4.5 8H11a3 3 0 0 1 3 3v7"/><path d="M3 14h18v4H3zM21 14V11a2 2 0 0 0-2-2h-5"/></svg>
+              </div>
+              <strong>Кровать</strong>
+              <span>С основанием и изголовьем</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hidden" data-step-panel="2">
+          <div class="field-grid">
+            <div class="field">
+              <label>Ширина <span id="dim-width-val">1800 мм</span></label>
+              <input id="dim-width" type="range" min="300" max="6000" step="10" value="1800" />
+            </div>
+            <div class="field">
+              <label>Высота <span id="dim-height-val">2400 мм</span></label>
+              <input id="dim-height" type="range" min="300" max="3500" step="10" value="2400" />
+            </div>
+            <div class="field">
+              <label>Глубина <span id="dim-depth-val">600 мм</span></label>
+              <input id="dim-depth" type="range" min="200" max="2500" step="10" value="600" />
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden" data-step-panel="3">
+          <div class="field-grid">
+            <div class="field">
+              <label>Материал</label>
+              <select id="material-grade">
+                <option value="эконом">Эконом — ЛДСП</option>
+                <option value="стандарт" selected>Стандарт — ЛДСП+МДФ</option>
+                <option value="премиум">Премиум — шпон / крашеный МДФ</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Фурнитура</label>
+              <select id="hardware-brand">
+                <option value="базовая" selected>Базовая</option>
+                <option value="Blum">Blum</option>
+                <option value="DTC">DTC</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Доп. опции</label>
+              <div class="option-row">
+                <label class="chip"><input type="checkbox" data-extra value="подсветка" /> Подсветка</label>
+                <label class="chip"><input type="checkbox" data-extra value="выдвижные ящики" /> Выдвижные ящики</label>
+                <label class="chip"><input type="checkbox" data-extra value="зеркала" /> Зеркала</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden" data-step-panel="4">
+          <div class="price-box">
+            <div class="label">Ориентировочная стоимость</div>
+            <div class="range" id="price-range">—</div>
+            <div class="breakdown" id="price-breakdown"></div>
+            <p id="price-summary" style="margin:0.8rem 0 0;font-size:0.9rem;opacity:.9"></p>
+          </div>
+          <div class="field-grid" style="margin-top:1rem">
+            <div class="field">
+              <label>Имя</label>
+              <input id="client-name" type="text" placeholder="Айгерим" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label>Телефон (KZ)</label>
+              <input id="client-phone" type="tel" placeholder="+77001234567" autocomplete="tel" />
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="btn-prev">Назад</button>
+          <button type="button" class="btn btn-primary" id="btn-next">Далее</button>
+          <button type="button" class="btn btn-accent hidden" id="btn-submit-lead">Оставить заявку</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="vision" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <h2>Загрузите эскиз</h2>
+        <p>Перетащите фото чертежа — AI подставит тип и размеры в калькулятор.</p>
+      </div>
+      <div class="upload-zone" id="upload-zone">
+        <h3>Drag & Drop</h3>
+        <p>JPEG, PNG, WEBP до 8 МБ</p>
+        <p id="upload-filename" style="font-weight:700;margin-bottom:1rem">Файл не выбран</p>
+        <input id="sketch-input" type="file" accept="image/*" class="hidden" />
+        <button type="button" class="btn btn-primary" id="btn-vision">Распознать и посчитать</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div><strong class="brand">Mebel<span>Express</span></strong> · MVP платформа заказа мебели</div>
+      <a href="./track.html">Проверить статус заказа →</a>
+    </div>
+  </footer>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+  <script src="./js/calculator.js"></script>
+  <script src="./js/vision_upload.js"></script>
+</body>
+</html>

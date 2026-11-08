@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Статус заказа — MebelExpress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <script>
+    window.MEBEL_API_BASE =
+      window.MEBEL_API_BASE ||
+      (["8000", "8080"].includes(location.port) || !location.port
+        ? "/api/v1"
+        : "http://127.0.0.1:8000/api/v1");
+
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="./index.html">Mebel<span>Express</span></a>
+      <nav class="nav-links">
+        <a href="./index.html#calculator">Калькулятор</a>
+        <a class="btn btn-primary" href="./index.html">На главную</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container" style="max-width:720px">
+      <div class="section-head">
+        <h2>Где мой заказ?</h2>
+        <p>Введите номер из договора. Демо: <code>TEST1234</code></p>
+      </div>
+
+      <form class="panel" id="tracking-form">
+        <div class="field">
+          <label for="order-number">Номер заказа</label>
+          <input id="order-number" type="text" placeholder="TEST1234" autocomplete="off" required />
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn btn-primary">Показать статус</button>
+        </div>
+      </form>
+
+      <div class="panel hidden" id="tracking-result" style="margin-top:1rem">
+        <h3 id="tracking-meta" style="margin:0 0 0.5rem;font-family:var(--font-display)"></h3>
+        <div class="progress-track" id="tracking-stages" aria-label="Прогресс производства"></div>
+        <div class="tracking-photo hidden" id="tracking-photo">
+          <img id="tracking-photo-img" alt="Фото из цеха" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+  <script src="./js/tracking.js"></script>
+</body>
+</html>
