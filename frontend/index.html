@@ -10,10 +10,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="./css/styles.css" />
   <script>
-    // Same-origin when served by FastAPI (:8000) or Docker nginx (:8080)
+    // Same-origin when served by FastAPI / Docker nginx (any of these ports)
     window.MEBEL_API_BASE =
       window.MEBEL_API_BASE ||
-      (["8000", "8080"].includes(location.port) || !location.port
+      (["8000", "8020", "8080"].includes(location.port) || !location.port
         ? "/api/v1"
         : "http://127.0.0.1:8000/api/v1");
 

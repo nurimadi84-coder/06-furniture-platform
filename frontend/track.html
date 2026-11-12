@@ -12,7 +12,7 @@
   <script>
     window.MEBEL_API_BASE =
       window.MEBEL_API_BASE ||
-      (["8000", "8080"].includes(location.port) || !location.port
+      (["8000", "8020", "8080"].includes(location.port) || !location.port
         ? "/api/v1"
         : "http://127.0.0.1:8000/api/v1");
 

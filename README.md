@@ -46,7 +46,7 @@ python -m http.server 5500
 
 ## Docker
 
-В корне `furniture_platform/`:
+В корне `06-furniture-platform/`:
 
 ```bash
 # опционально: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, OPENAI_API_KEY
@@ -100,4 +100,4 @@ alembic upgrade head
 
 ## Структура
 
-См. каталог `furniture_platform/` — backend (`app/`), frontend, `nginx/`, `docker-compose.yml`.
+См. каталог `06-furniture-platform/` — backend (`app/`), frontend, `nginx/`, `docker-compose.yml`.
